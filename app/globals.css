@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------
+   CalcFlow design tokens.
+   Light palette lives on :root. Dark palette is applied by data-theme,
+   which an inline bootstrap script (see app/layout.tsx) sets before
+   paint based on the saved preference + system setting, so there is no
+   flash of the wrong theme.
+   ------------------------------------------------------------------- */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #eef0f3;
+  --border: #e2e5ea;
+  --text: #14161a;
+  --text-secondary: #5b6270;
+  --text-muted: #8a909c;
+  --accent: #0d6e6e;
+  --accent-hover: #0a5757;
+  --accent-foreground: #ffffff;
+  --accent-soft: #e3f2f1;
+  --success: #1a7f4e;
+  --success-soft: #e3f5eb;
+  --danger: #c0362c;
+  --danger-soft: #fbe9e7;
+  --warning: #9a6400;
+  --warning-soft: #fdf1dd;
+  --focus-ring: #0d6e6e;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 2px rgba(20, 22, 26, 0.06);
+  --shadow-md: 0 4px 16px rgba(20, 22, 26, 0.08);
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0d10;
+  --surface: #15181d;
+  --surface-2: #1c2027;
+  --border: #2a2f38;
+  --text: #eef0f3;
+  --text-secondary: #a7adb8;
+  --text-muted: #767c88;
+  --accent: #35d6c4;
+  --accent-hover: #5ee2d3;
+  --accent-foreground: #06201d;
+  --accent-soft: #16302e;
+  --success: #3fbf83;
+  --success-soft: #123322;
+  --danger: #e5695d;
+  --danger-soft: #3a1a17;
+  --warning: #e0ac47;
+  --warning-soft: #3a2c0f;
+  --focus-ring: #35d6c4;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Respect reduced-motion preference globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible focus ring everywhere, keyboard-first accessibility */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Prevent horizontal scroll from any overflowing child */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+/* Numeric inputs: no browser spinner clutter on mobile */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
