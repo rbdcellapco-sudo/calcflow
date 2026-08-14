@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { getAllSlugs } from "@/lib/registry";
 import { categories } from "@/lib/categories";
 
+export const dynamic = "force-static";
+
 const BASE_URL = "https://calcflow.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {

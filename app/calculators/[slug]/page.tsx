@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { CalculatorShell } from "@/components/calculator/calculator-shell";
@@ -27,35 +28,11 @@ export async function generateMetadata(props: PageProps<"/calculators/[slug]">):
   };
 }
 
-/** Only accept query params that correspond to a real input field on this
- * calculator, and coerce to plain strings - keeps shared URLs safe and
- * predictable even if extra/garbage params are appended. */
-function sanitizeParams(
-  slug: string,
-  searchParams: Record<string, string | string[] | undefined>
-): Record<string, string> {
-  const def = getCalculatorBySlug(slug);
-  if (!def) return {};
-  const allowedNames = new Set([...def.inputs, ...(def.advancedInputs ?? [])].map((f) => f.name));
-  if (def.custom) allowedNames.add("expr");
-
-  const result: Record<string, string> = {};
-  for (const [key, value] of Object.entries(searchParams)) {
-    if (!allowedNames.has(key)) continue;
-    const raw = Array.isArray(value) ? value[0] : value;
-    if (raw === undefined) continue;
-    result[key] = raw.slice(0, 200);
-  }
-  return result;
-}
-
 export default async function CalculatorPage(props: PageProps<"/calculators/[slug]">) {
   const { slug } = await props.params;
-  const searchParams = await props.searchParams;
   const def = getCalculatorBySlug(slug);
   if (!def) notFound();
 
-  const initialParams = sanitizeParams(slug, searchParams);
   const related = getRelatedCalculators(def);
 
   const faqJsonLd =
@@ -80,7 +57,9 @@ export default async function CalculatorPage(props: PageProps<"/calculators/[slu
         />
       ) : null}
 
-      <CalculatorShell slug={slug} initialParams={initialParams} />
+      <Suspense fallback={null}>
+        <CalculatorShell slug={slug} />
+      </Suspense>
 
       {related.length > 0 ? (
         <section className="flex flex-col gap-3">

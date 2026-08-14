@@ -4,7 +4,10 @@
 //  - Navigations and other same-origin GET requests -> network-first, falling back to cache,
 //    so pages you've visited once keep working offline (all calculation logic runs client-side).
 const CACHE_NAME = "calcflow-v1";
-const APP_SHELL = ["/", "/manifest.webmanifest", "/icon.svg"];
+// Derived from this script's own URL so caching works whether the app is
+// served at the domain root or under a GitHub Pages project sub-path.
+const BASE_PATH = self.location.pathname.replace(/\/sw\.js$/, "");
+const APP_SHELL = [`${BASE_PATH}/`, `${BASE_PATH}/manifest.webmanifest`, `${BASE_PATH}/icon.svg`];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -31,7 +34,7 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  const isStaticAsset = url.pathname.startsWith("/_next/static/");
+  const isStaticAsset = url.pathname.includes("/_next/static/");
 
   if (isStaticAsset) {
     event.respondWith(
@@ -57,7 +60,7 @@ self.addEventListener("fetch", (event) => {
         const cached = await cache.match(request);
         if (cached) return cached;
         if (request.mode === "navigate") {
-          const fallback = await cache.match("/");
+          const fallback = await cache.match(`${BASE_PATH}/`);
           if (fallback) return fallback;
         }
         throw new Error("Network unavailable and no cache entry found");

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { CalcResult, CalculatorDef } from "@/lib/types";
 import { getCalculatorBySlug } from "@/lib/registry";
 import { getSettings, addHistoryEntry } from "@/lib/storage";
@@ -34,14 +35,29 @@ function buildQueryString(values: Record<string, string>, defaults: Record<strin
   return params.toString();
 }
 
-export function CalculatorShell({
-  slug,
-  initialParams,
-}: {
-  slug: string;
-  initialParams: Record<string, string>;
-}) {
+/** Only accept query params that correspond to a real input field on this
+ * calculator, and coerce to plain strings - keeps shared URLs safe and
+ * predictable even if extra/garbage params are appended. */
+function sanitizeParams(def: CalculatorDef, searchParams: URLSearchParams): Record<string, string> {
+  const allowedNames = new Set([...def.inputs, ...(def.advancedInputs ?? [])].map((f) => f.name));
+  if (def.custom) allowedNames.add("expr");
+
+  const result: Record<string, string> = {};
+  for (const [key, value] of searchParams.entries()) {
+    if (!allowedNames.has(key) || key in result) continue;
+    result[key] = value.slice(0, 200);
+  }
+  return result;
+}
+
+export function CalculatorShell({ slug }: { slug: string }) {
   const def = getCalculatorBySlug(slug);
+  const searchParams = useSearchParams();
+  const initialParams = useMemo(
+    () => (def ? sanitizeParams(def, searchParams) : {}),
+    [def, searchParams]
+  );
+
   if (!def) {
     return <p className="text-text-secondary">Calculator not found.</p>;
   }
