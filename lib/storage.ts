@@ -11,8 +11,8 @@ const KEYS = {
 
 const DEFAULT_SETTINGS: Settings = {
   theme: "system",
-  currency: "USD",
-  locale: "en-US",
+  currency: "INR",
+  locale: "en-IN",
 };
 
 function isBrowser() {
