@@ -8,50 +8,50 @@
    flash of the wrong theme.
    ------------------------------------------------------------------- */
 :root {
-  --bg: #f6f7f9;
+  --bg: #f7f7fb;
   --surface: #ffffff;
-  --surface-2: #eef0f3;
-  --border: #e2e5ea;
-  --text: #14161a;
-  --text-secondary: #5b6270;
-  --text-muted: #8a909c;
-  --accent: #0d6e6e;
-  --accent-hover: #0a5757;
+  --surface-2: #eeecf7;
+  --border: #e1defa;
+  --text: #17151f;
+  --text-secondary: #58536b;
+  --text-muted: #8a84a0;
+  --accent: #5b3df0;
+  --accent-hover: #4a2fd6;
   --accent-foreground: #ffffff;
-  --accent-soft: #e3f2f1;
-  --success: #1a7f4e;
+  --accent-soft: #ece8fd;
+  --success: #157a4a;
   --success-soft: #e3f5eb;
-  --danger: #c0362c;
-  --danger-soft: #fbe9e7;
-  --warning: #9a6400;
-  --warning-soft: #fdf1dd;
-  --focus-ring: #0d6e6e;
+  --danger: #c22e3a;
+  --danger-soft: #fbe8ea;
+  --warning: #96590a;
+  --warning-soft: #fdf0dd;
+  --focus-ring: #5b3df0;
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
-  --shadow-sm: 0 1px 2px rgba(20, 22, 26, 0.06);
-  --shadow-md: 0 4px 16px rgba(20, 22, 26, 0.08);
+  --shadow-sm: 0 1px 2px rgba(23, 21, 31, 0.06);
+  --shadow-md: 0 4px 16px rgba(23, 21, 31, 0.08);
 }
 
 :root[data-theme="dark"] {
-  --bg: #0b0d10;
-  --surface: #15181d;
-  --surface-2: #1c2027;
-  --border: #2a2f38;
-  --text: #eef0f3;
-  --text-secondary: #a7adb8;
-  --text-muted: #767c88;
-  --accent: #35d6c4;
-  --accent-hover: #5ee2d3;
-  --accent-foreground: #06201d;
-  --accent-soft: #16302e;
-  --success: #3fbf83;
+  --bg: #0d0c14;
+  --surface: #17151f;
+  --surface-2: #1e1b29;
+  --border: #2c2840;
+  --text: #f1eef9;
+  --text-secondary: #b3adc7;
+  --text-muted: #7d778f;
+  --accent: #9b8cf7;
+  --accent-hover: #b3a6fa;
+  --accent-foreground: #1a1330;
+  --accent-soft: #2a2245;
+  --success: #4bc98a;
   --success-soft: #123322;
-  --danger: #e5695d;
-  --danger-soft: #3a1a17;
-  --warning: #e0ac47;
-  --warning-soft: #3a2c0f;
-  --focus-ring: #35d6c4;
+  --danger: #ea6f79;
+  --danger-soft: #3a1a1d;
+  --warning: #e3ab52;
+  --warning-soft: #3a2c10;
+  --focus-ring: #9b8cf7;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.45);
 }
