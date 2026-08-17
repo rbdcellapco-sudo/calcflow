@@ -56,6 +56,15 @@ export function sanitizeNumericInput(raw: string): string {
   return (neg ? "-" : "") + s;
 }
 
+/**
+ * Math.ceil() that ignores floating-point dust (e.g. 100 * 1.1 evaluating to
+ * 110.00000000000001), so results that should land exactly on a whole number
+ * aren't bumped up to the next one. Use for "how many units do I need" results.
+ */
+export function ceilSafe(value: number): number {
+  return Math.ceil(Math.round(value * 1e6) / 1e6);
+}
+
 /** Add thousands separators to a plain numeric string while typing (keeps trailing decimal). */
 export function groupThousands(raw: string): string {
   if (!raw) return raw;

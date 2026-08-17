@@ -7,6 +7,7 @@ import { PercentageInput } from "./inputs/percentage-input";
 import { SelectInput } from "./inputs/select-input";
 import { DateInput } from "./inputs/date-input";
 import { SegmentedControl } from "./inputs/segmented-control";
+import { Toggle } from "./inputs/toggle";
 import { FieldWrapper, baseInputClasses, borderClasses } from "./inputs/field-wrapper";
 import { cn } from "@/lib/cn";
 
@@ -76,6 +77,16 @@ export function CalculatorInput({
           value={value}
           onChange={onChange}
           options={field.options ?? []}
+        />
+      );
+    case "toggle":
+      return (
+        <Toggle
+          id={id}
+          label={resolvedLabel}
+          checked={value === "true"}
+          onChange={(v) => onChange(v ? "true" : "false")}
+          helpText={field.helpText}
         />
       );
     case "date":

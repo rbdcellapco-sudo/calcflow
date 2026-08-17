@@ -280,6 +280,9 @@ class Parser {
     if (t.type === "identifier") {
       this.next();
       const name = t.value.toLowerCase();
+      if (name === "rnd") {
+        return Math.random();
+      }
       if (name in CONSTANTS) {
         return CONSTANTS[name];
       }

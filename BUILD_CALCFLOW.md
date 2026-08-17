@@ -269,6 +269,7 @@ Unit-test every calculator's `calculate()`:
   large, very small values.
 - **Date:** leap years, month boundaries, timezone/DST considerations.
 - **Percentage:** increase, decrease, percentage-of, percentage-difference.
+
 - **Scientific:** operator precedence, brackets, trig, deg/rad, float edge cases.
 
 Visual QA at: 360×800, 375×812, 390×844, 412×915, 430×932, 768×1024, 1024×1366,

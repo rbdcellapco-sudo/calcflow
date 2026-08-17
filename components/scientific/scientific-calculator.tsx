@@ -30,12 +30,33 @@ function toggleLeadingSign(expr: string): string {
   return `${before}-(${match[0]})`;
 }
 
-const FUNCTION_BUTTONS: { label: string; insert: string; aria: string }[] = [
-  { label: "sin", insert: "sin(", aria: "sine" },
-  { label: "cos", insert: "cos(", aria: "cosine" },
-  { label: "tan", insert: "tan(", aria: "tangent" },
-  { label: "ln", insert: "ln(", aria: "natural log" },
-  { label: "log", insert: "log(", aria: "log base 10" },
+/** Wrap the trailing plain number in 1/(...), e.g. "10+5" -> "10+1/(5)". */
+function reciprocal(expr: string): string {
+  const match = expr.match(/(\d+(\.\d+)?)$/);
+  if (!match) return expr;
+  const start = expr.length - match[0].length;
+  return `${expr.slice(0, start)}1/(${match[0]})`;
+}
+
+function trigLogButtons(inv: boolean): { label: string; insert: string; aria: string }[] {
+  return inv
+    ? [
+        { label: "sin⁻¹", insert: "asin(", aria: "inverse sine" },
+        { label: "cos⁻¹", insert: "acos(", aria: "inverse cosine" },
+        { label: "tan⁻¹", insert: "atan(", aria: "inverse tangent" },
+        { label: "eˣ", insert: "e^(", aria: "e to the power" },
+        { label: "10ˣ", insert: "10^(", aria: "ten to the power" },
+      ]
+    : [
+        { label: "sin", insert: "sin(", aria: "sine" },
+        { label: "cos", insert: "cos(", aria: "cosine" },
+        { label: "tan", insert: "tan(", aria: "tangent" },
+        { label: "ln", insert: "ln(", aria: "natural log" },
+        { label: "log", insert: "log(", aria: "log base 10" },
+      ];
+}
+
+const CONST_BUTTONS: { label: string; insert: string; aria: string }[] = [
   { label: "√", insert: "sqrt(", aria: "square root" },
   { label: "(", insert: "(", aria: "open parenthesis" },
   { label: ")", insert: ")", aria: "close parenthesis" },
@@ -53,6 +74,7 @@ export function ScientificCalculator({
   const [expression, setExpression] = useState(initialExpression ?? "");
   const [display, setDisplay] = useState<string>("0");
   const [angleMode, setAngleMode] = useState<AngleMode>("deg");
+  const [inv, setInv] = useState(false);
   const [memory, setMemory] = useState(0);
   const [tape, setTape] = useState<TapeEntry[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -207,11 +229,39 @@ export function ScientificCalculator({
           AC
         </button>
 
-        {FUNCTION_BUTTONS.map((f) => (
+        {trigLogButtons(inv).map((f) => (
           <button key={f.label} type="button" className={btnClass} aria-label={f.aria} onClick={() => append(f.insert)}>
             {f.label}
           </button>
         ))}
+
+        {CONST_BUTTONS.map((f) => (
+          <button key={f.label} type="button" className={btnClass} aria-label={f.aria} onClick={() => append(f.insert)}>
+            {f.label}
+          </button>
+        ))}
+
+        <button
+          type="button"
+          className={cn(btnClass, inv && "bg-accent text-accent-foreground")}
+          aria-pressed={inv}
+          aria-label="inverse functions"
+          onClick={() => setInv((v) => !v)}
+        >
+          INV
+        </button>
+        <button type="button" className={btnClass} onClick={() => append("cbrt(")} aria-label="cube root">
+          ∛
+        </button>
+        <button type="button" className={btnClass} onClick={() => setExpression((prev) => reciprocal(prev))} aria-label="reciprocal">
+          1/x
+        </button>
+        <button type="button" className={btnClass} onClick={() => append("^3")} aria-label="cube">
+          x³
+        </button>
+        <button type="button" className={btnClass} onClick={() => append("rnd")} aria-label="random number">
+          RND
+        </button>
 
         <button type="button" className={btnClass} onClick={() => append("^2")} aria-label="square">
           x²

@@ -16,6 +16,7 @@ import { ActionsRow } from "./actions-row";
 import { Button } from "@/components/ui/button";
 import { formatResultValue } from "@/lib/format";
 import { ScientificCalculator } from "@/components/scientific/scientific-calculator";
+import { CurrencyCalculator } from "@/components/currency/currency-calculator";
 
 function defaultValues(def: CalculatorDef): Record<string, string> {
   const values: Record<string, string> = {};
@@ -66,7 +67,11 @@ export function CalculatorShell({ slug }: { slug: string }) {
     return (
       <div className="flex flex-col gap-5">
         <CalculatorHeader def={def} />
-        <ScientificCalculator def={def} initialExpression={initialParams.expr} />
+        {def.slug === "currency" ? (
+          <CurrencyCalculator />
+        ) : (
+          <ScientificCalculator def={def} initialExpression={initialParams.expr} />
+        )}
         <FormulaCard formula={def.formula} />
         <ExplanationCard explanation={def.explanation} faq={def.faq} />
       </div>

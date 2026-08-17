@@ -7,6 +7,7 @@ const KEYS = {
   history: "calcflow.history.v1",
   settings: "calcflow.settings.v1",
   recentSearches: "calcflow.recentSearches.v1",
+  currencyRates: "calcflow.currencyRates.v1",
 } as const;
 
 const DEFAULT_SETTINGS: Settings = {
@@ -135,4 +136,20 @@ export function getThemePreference(): ThemePreference {
 
 export function setThemePreference(theme: ThemePreference): void {
   updateSettings({ theme });
+}
+
+/* ---------------- Currency exchange rates (cached) ---------------- */
+
+export type CachedRates = {
+  base: string;
+  rates: Record<string, number>;
+  fetchedAt: number;
+};
+
+export function getCachedRates(): CachedRates | null {
+  return readJson<CachedRates | null>(KEYS.currencyRates, null);
+}
+
+export function setCachedRates(rates: CachedRates): void {
+  writeJson(KEYS.currencyRates, rates);
 }
