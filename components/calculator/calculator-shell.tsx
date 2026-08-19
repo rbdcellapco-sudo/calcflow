@@ -230,7 +230,7 @@ function GenericCalculatorShell({
       </form>
 
       {result ? (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 animate-fade-in-up">
           <ResultCard result={result.primary} currency={settings.currency} locale={settings.locale} />
           {result.notes && result.notes.length > 0 ? (
             <p className="text-sm text-text-secondary -mt-2 px-1">{result.notes.join(" ")}</p>

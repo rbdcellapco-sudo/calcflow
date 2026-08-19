@@ -8,7 +8,10 @@ import { allCalculators, getCalculatorsByCategory } from "@/lib/registry";
 export default function HomePage() {
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
+      <div
+        className="flex flex-col gap-2 rounded-[var(--radius-lg)] border border-border p-5 sm:p-6"
+        style={{ backgroundImage: "var(--hero-gradient)" }}
+      >
         <h1 className="text-2xl font-bold text-text">Every calculation. One simple app.</h1>
         <p className="text-sm text-text-secondary">
           {allCalculators.length} calculators covering finance, health, math, dates, and more - no login, works

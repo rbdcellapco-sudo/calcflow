@@ -31,6 +31,8 @@
   --radius-lg: 20px;
   --shadow-sm: 0 1px 2px rgba(23, 21, 31, 0.06);
   --shadow-md: 0 4px 16px rgba(23, 21, 31, 0.08);
+  --shadow-up: 0 -2px 12px rgba(23, 21, 31, 0.06);
+  --hero-gradient: radial-gradient(120% 140% at 0% 0%, var(--accent-soft) 0%, transparent 60%);
 }
 
 :root[data-theme="dark"] {
@@ -54,6 +56,7 @@
   --focus-ring: #9b8cf7;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.45);
+  --shadow-up: 0 -2px 16px rgba(0, 0, 0, 0.35);
 }
 
 @theme inline {
@@ -128,6 +131,21 @@ body {
 ::selection {
   background: var(--accent-soft);
   color: var(--text);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.25s ease-out;
 }
 
 /* Numeric inputs: no browser spinner clutter on mobile */

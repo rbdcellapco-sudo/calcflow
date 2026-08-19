@@ -3,7 +3,7 @@ import { Calculator, Settings } from "lucide-react";
 
 export function MobileHeader() {
   return (
-    <header className="md:hidden sticky top-0 z-30 flex items-center justify-between border-b border-border bg-surface/95 backdrop-blur px-4 min-h-14">
+    <header className="md:hidden sticky top-0 z-30 flex items-center justify-between border-b border-border bg-surface/95 backdrop-blur shadow-[var(--shadow-sm)] px-4 min-h-14">
       <Link href="/" className="flex items-center gap-2">
         <div className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-accent text-accent-foreground">
           <Calculator className="h-4 w-4" aria-hidden />

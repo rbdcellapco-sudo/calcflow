@@ -6,7 +6,7 @@ export function CategoryCard({ category, count }: { category: CategoryMeta; coun
   const Icon = category.icon;
   return (
     <Link href={`/categories/${category.id}`} className="block h-full">
-      <Card className="p-4 sm:p-5 h-full flex flex-col gap-3 hover:border-accent/50 transition-colors duration-150">
+      <Card className="p-4 sm:p-5 h-full flex flex-col gap-3 hover:border-accent/50 hover:shadow-[var(--shadow-md)] hover:-translate-y-0.5 transition-[border-color,box-shadow,transform] duration-150">
         <div className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] bg-accent-soft text-accent">
           <Icon className="h-5 w-5" aria-hidden />
         </div>

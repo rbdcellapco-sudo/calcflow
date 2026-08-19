@@ -10,7 +10,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-surface pb-[env(safe-area-inset-bottom)]"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-surface shadow-[var(--shadow-up)] pb-[env(safe-area-inset-bottom)]"
       aria-label="Primary"
     >
       <ul className="grid grid-cols-5">
@@ -27,7 +27,7 @@ export function BottomNav() {
                   active ? "text-accent" : "text-text-muted hover:text-text-secondary"
                 )}
               >
-                <Icon className="h-5 w-5" aria-hidden />
+                <Icon className={cn("h-5 w-5 transition-transform duration-150", active && "scale-110")} aria-hidden />
                 {item.label}
               </Link>
             </li>

@@ -7,7 +7,7 @@ export function CalculatorCard({ def }: { def: CalculatorDef }) {
   const Icon = def.icon;
   return (
     <Link href={`/calculators/${def.slug}`} className="block">
-      <Card className="p-4 flex items-center gap-3 hover:border-accent/50 transition-colors duration-150 min-h-11">
+      <Card className="p-4 flex items-center gap-3 hover:border-accent/50 hover:shadow-[var(--shadow-md)] hover:-translate-y-0.5 transition-[border-color,box-shadow,transform] duration-150 min-h-11">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-sm)] bg-accent-soft text-accent">
           <Icon className="h-5 w-5" aria-hidden />
         </div>

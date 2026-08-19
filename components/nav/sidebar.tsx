@@ -31,8 +31,10 @@ export function Sidebar() {
               href={item.href}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "flex items-center gap-3 rounded-[var(--radius-sm)] px-3 min-h-11 text-sm font-medium transition-colors duration-150",
-                active ? "bg-accent-soft text-accent" : "text-text-secondary hover:bg-surface-2 hover:text-text"
+                "flex items-center gap-3 rounded-[var(--radius-sm)] px-3 min-h-11 text-sm font-medium transition-[background-color,color,box-shadow] duration-150",
+                active
+                  ? "bg-accent-soft text-accent shadow-[inset_2px_0_0_var(--accent)]"
+                  : "text-text-secondary hover:bg-surface-2 hover:text-text"
               )}
             >
               <Icon className="h-4 w-4" aria-hidden />
@@ -47,8 +49,10 @@ export function Sidebar() {
           href={settingsItem.href}
           aria-current={isActive(settingsItem.href) ? "page" : undefined}
           className={cn(
-            "flex items-center gap-3 rounded-[var(--radius-sm)] px-3 min-h-11 text-sm font-medium transition-colors duration-150",
-            isActive(settingsItem.href) ? "bg-accent-soft text-accent" : "text-text-secondary hover:bg-surface-2 hover:text-text"
+            "flex items-center gap-3 rounded-[var(--radius-sm)] px-3 min-h-11 text-sm font-medium transition-[background-color,color,box-shadow] duration-150",
+            isActive(settingsItem.href)
+              ? "bg-accent-soft text-accent shadow-[inset_2px_0_0_var(--accent)]"
+              : "text-text-secondary hover:bg-surface-2 hover:text-text"
           )}
         >
           <settingsItem.icon className="h-4 w-4" aria-hidden />
